@@ -27,14 +27,7 @@ Route::middleware('auth')->group(function () {
     // ------------------------------------ logout --------------------
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-    // ------------------------------------ Students --------------------
-    Route::prefix('students')->controller(StudentController::class)->name('students.')->group(function () {
-        Route::get('/', 'index')->name('list');
-        Route::get('/students/createUpdate/{id?}', 'createUpdate')->name('createUpdate');
-        Route::post('/students/store', 'store')->name('store');
-        Route::get('/students/delete/{id?}', 'destroy')->name('delete');
-    });
-
+    // ------------------------------------ Company --------------------
     Route::prefix('company')->controller(CompanyController::class)->name('company.')->group(function () {
         Route::get('/', 'index')->name('list');
         Route::get('/company/createUpdate/{id?}', 'createUpdate')->name('createUpdate');
@@ -42,6 +35,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/company/delete/{id?}', 'destroy')->name('delete');
     });
 
+    // ------------------------------------ Employee --------------------
     Route::prefix('employee')->controller(EmployeeController::class)->name('employee.')->group(function () {
         Route::get('/', 'index')->name('list');
         Route::get('/employee/createUpdate/{id?}', 'createUpdate')->name('createUpdate');
