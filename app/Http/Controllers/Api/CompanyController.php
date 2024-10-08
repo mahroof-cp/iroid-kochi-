@@ -11,7 +11,12 @@ class CompanyController extends Controller
     public function index()
     {
         $companies = Company::all();
-
-        return response()->json($companies);
+    
+        if ($companies->isEmpty()) {
+            return response()->json(['status' => false, 'message' => 'No companies found'], 404);
+        }
+    
+        return response()->json(['status' => true, 'message' => 'Companies fetched successfully', 'data' => $companies], 200);
     }
+    
 }
