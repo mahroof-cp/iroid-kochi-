@@ -3,6 +3,7 @@
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,5 +40,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/company/createUpdate/{id?}', 'createUpdate')->name('createUpdate');
         Route::post('/company/store', 'store')->name('store');
         Route::get('/company/delete/{id?}', 'destroy')->name('delete');
+    });
+
+    Route::prefix('employee')->controller(EmployeeController::class)->name('employee.')->group(function () {
+        Route::get('/', 'index')->name('list');
+        Route::get('/employee/createUpdate/{id?}', 'createUpdate')->name('createUpdate');
+        Route::post('/employee/store', 'store')->name('store');
+        Route::get('/employee/delete/{id?}', 'destroy')->name('delete');
     });
 });

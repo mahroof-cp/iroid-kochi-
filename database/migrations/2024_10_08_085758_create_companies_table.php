@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique(); 
             $table->text('description');
-            $table->string('logo'); 
+            $table->string('logo')->nullable(); 
             $table->string('contact_number'); 
             $table->decimal('annual_turnover', 15, 2); 
             $table->foreignId('created_by')->constrained('users');
