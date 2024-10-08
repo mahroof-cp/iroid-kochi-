@@ -23,7 +23,7 @@ class EmployeeController extends Controller
 
             return Datatables::of($data)
                 ->editColumn('image', function($row){
-                    $src = asset('storage/images/' . $row->image);
+                    $src = asset('storage/image/' . $row->image);
                     return "<a href='{$src}' target='_blank'><img src='{$src}' width='50' height='50' alt='Image' class='image-img'></a>";
                 })
                 ->addColumn('company', function ($row) {
@@ -43,7 +43,7 @@ class EmployeeController extends Controller
                 })
                 ->addColumn('action', function($row){
                     $btn1 = '<a href="' . route('employee.createUpdate', $row->id) . '" data-toggle="tooltip" data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editEmployee">Edit</a>';
-                    $btn2 = '<a href="' . route('employee.delete', $row->id) . '" data-toggle="tooltip" data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteEmployee">Delete</a>';
+                    $btn2 = ' <a href="javascript:void(0)" data-id="' . $row->id . '" class="deleteEmployee btn btn-danger btn-sm">Delete</a>';
                     return $btn1 . $btn2;
                 })
                 ->addIndexColumn()
@@ -75,7 +75,7 @@ class EmployeeController extends Controller
             $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('image')->getClientOriginalExtension();
             $fileNameToStore = $fileName.'_'.time().'.'.$extension;
-            $request->file('image')->storeAs('public/images', $fileNameToStore);
+            $request->file('image')->storeAs('public/image', $fileNameToStore);
             $data['image'] = $fileNameToStore;
         }
 
@@ -85,7 +85,14 @@ class EmployeeController extends Controller
 
     public function destroy($id)
     {
-        Employee::find($id)->delete();
-        return redirect()->route('employee.list');
+        $employee = Employee::find($id);
+        
+        if (!$employee) {
+            return response()->json(['error' => 'Employee not found'], 400);  
+        }
+    
+        $employee->delete();
+        return response()->json(['success' => 'Employee deleted successfully!'], 200);
     }
+    
 }

@@ -30,16 +30,16 @@ Route::middleware('auth')->group(function () {
     // ------------------------------------ Company --------------------
     Route::prefix('company')->controller(CompanyController::class)->name('company.')->group(function () {
         Route::get('/', 'index')->name('list');
-        Route::get('/company/createUpdate/{id?}', 'createUpdate')->name('createUpdate');
-        Route::post('/company/store', 'store')->name('store');
-        Route::get('/company/delete/{id?}', 'destroy')->name('delete');
+        Route::get('/createUpdate/{id?}', 'createUpdate')->name('createUpdate');
+        Route::post('/store', 'store')->name('store');
+        Route::delete('/delete/{id}', 'destroy')->name('delete');
     });
 
     // ------------------------------------ Employee --------------------
     Route::prefix('employee')->controller(EmployeeController::class)->name('employee.')->group(function () {
         Route::get('/', 'index')->name('list');
-        Route::get('/employee/createUpdate/{id?}', 'createUpdate')->name('createUpdate');
-        Route::post('/employee/store', 'store')->name('store');
-        Route::get('/employee/delete/{id?}', 'destroy')->name('delete');
+        Route::get('/createUpdate/{id?}', 'createUpdate')->name('createUpdate');
+        Route::post('/store', 'store')->name('store');
+        Route::delete('/delete/{id}', 'destroy')->name('delete');
     });
 });
