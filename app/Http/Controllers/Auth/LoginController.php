@@ -17,7 +17,7 @@ class LoginController extends Controller
         $remember = $request->has('remember_token'); 
         
         if(auth()->attempt($credentials, $remember)){
-            return redirect()->route('students.list');
+            return redirect()->route('company.list');
         }else{
             return redirect()->route('login')->withErrors(['message' => 'Login is invalid']);
         }
