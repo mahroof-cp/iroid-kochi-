@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\CompanyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,5 +32,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/students/createUpdate/{id?}', 'createUpdate')->name('createUpdate');
         Route::post('/students/store', 'store')->name('store');
         Route::get('/students/delete/{id?}', 'destroy')->name('delete');
+    });
+
+    Route::prefix('company')->controller(CompanyController::class)->name('company.')->group(function () {
+        Route::get('/', 'index')->name('list');
+        Route::get('/company/createUpdate/{id?}', 'createUpdate')->name('createUpdate');
+        Route::post('/company/store', 'store')->name('store');
+        Route::get('/company/delete/{id?}', 'destroy')->name('delete');
     });
 });
