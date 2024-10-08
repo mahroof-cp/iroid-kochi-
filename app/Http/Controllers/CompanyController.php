@@ -22,7 +22,7 @@ class CompanyController extends Controller
 
             return Datatables::of($data)
                 ->editColumn('logo', function($row){
-                    $src = asset('storage/images/' . $row->logo);
+                    $src = asset('storage/logo/' . $row->logo);
                     return "<a href='{$src}' target='_blank'><img src='{$src}' width='50' height='50' alt='Logo' class='logo-img'></a>";
                 })
                 ->addColumn('created_by', function ($row) {
@@ -39,7 +39,7 @@ class CompanyController extends Controller
                 })
                 ->addColumn('action', function($row){
                     $btn1 = '<a href="' . route('company.createUpdate', $row->id) . '" data-toggle="tooltip" data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editCompany">Edit</a>';
-                    $btn2 = '<a href="' . route('company.delete', $row->id) . '" data-toggle="tooltip" data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteCompany">Delete</a>';
+                    $btn2 = ' <a href="javascript:void(0)" data-id="' . $row->id . '" class="deleteCompany btn btn-danger btn-sm">Delete</a>';
                     return $btn1 . $btn2;
                 })
                 ->addIndexColumn()
@@ -70,7 +70,7 @@ class CompanyController extends Controller
             $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('logo')->getClientOriginalExtension();
             $fileNameToStore = $fileName.'_'.time().'.'.$extension;
-            $request->file('logo')->storeAs('public/images', $fileNameToStore);
+            $request->file('logo')->storeAs('public/logo', $fileNameToStore);
             $data['logo'] = $fileNameToStore;
         }
 
@@ -83,18 +83,11 @@ class CompanyController extends Controller
         $company = Company::with('employees')->findOrFail($id);
         
         if ($company->employees()->count() > 0) {
-            return redirect()->route('company.list')->with('error', 'Cannot delete company with associated employees.');
+            return response()->json(['error' => 'Cannot delete company with associated employees.'], 400);  
         }
-        
+
         $company->delete();
-        
-        return redirect()->route('company.list')->with('success', 'Company deleted successfully!');
+        return response()->json(['success' => 'Company deleted successfully!'], 200);  
     }
-
-
-    // public function destroy($id)
-    // {
-    //     Company::find($id)->delete();
-    //     return redirect()->route('company.list');
-    // }
+    
 }
