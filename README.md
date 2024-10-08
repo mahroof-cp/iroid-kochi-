@@ -1,2 +1,7 @@
-# datatable-ajax-crud
-It is an simple crud operation with datable, image upload, validation, authentication
+# IROID Task
+
+# Run This Command
+> composer update
+> php artisan make:fresh --seed
+> php artisan storage:link
+> php artisan serve
