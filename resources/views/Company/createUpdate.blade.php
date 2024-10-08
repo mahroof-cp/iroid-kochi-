@@ -15,7 +15,7 @@
 
         <div class="form-group">
             <label for="name">Name:</label>
-            <input type="text" class="form-control" id="name" name="name"  value="{{ old('name', $company->name) }}">
+            <input type="text" class="form-control" id="name" name="name"  value="{{ old('name', $company->name) }}" required>
             @error('name')
             <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -44,7 +44,7 @@
 
         <div class="form-group">
             <label for="contact_number">Contact Number:</label>
-            <input type="text" class="form-control" id="contact_number" name="contact_number" maxlength="10" value="{{ old('contact_number', $company->contact_number) }}">
+            <input type="text" class="form-control" id="contact_number" name="contact_number" maxlength="10" value="{{ old('contact_number', $company->contact_number) }}" required>
             @error('contact_number')
             <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -52,7 +52,7 @@
 
         <div class="form-group">
             <label for="annual_turnover">Annual Turnover:</label>
-            <input type="number" class="form-control" id="annual_turnover" name="annual_turnover" value="{{ old('annual_turnover', $company->annual_turnover) }}">
+            <input type="number" class="form-control" id="annual_turnover" name="annual_turnover" value="{{ old('annual_turnover', $company->annual_turnover) }}" required>
             @error('annual_turnover')
             <div class="text-danger">{{ $message }}</div>
             @enderror
